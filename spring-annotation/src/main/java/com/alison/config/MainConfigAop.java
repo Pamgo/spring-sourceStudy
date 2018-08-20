@@ -1,0 +1,117 @@
+package com.alison.config;
+
+import com.alison.aop.LogAspects;
+import com.alison.aop.MathCalculator;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+/**
+ * Created by OKali on 2018/8/19.
+ * AOP: 指在程序运行期间动态的将某段代码切入到指定方法指定位置进行运行的编程方式
+ *
+ * 1、导入aop模块，Spring AOP(spring-aspect)
+ * 2、定义一个业务逻辑类（MathCalculator），业务逻辑运行的时候将日志进行打印（方法之前，方法运行结束，方法出现异常等）
+ * 3、定义一个日志切面类（LogAspects）,切面类里面的方法需要动态感知  MathCalculator#div
+ *     通知方法：
+ *          前置通知(@Before)：logStart,在目标方法运行之前运行
+ *          后置通知(@After)：logEnd,在目标方法运行结束之后运行(无论方法是正常结束还是异常结束)
+ *          返回通知(@AfterRuturning)：logReturn,在目标方法正常返回运行
+ *          异常通知(@AfterThrowing)：logException,在目标方法运行出现异常以后运行
+ *          环绕通知(@Aroud)：动态代理，手动推进目标方法运行（joinPoint.procced())
+ * 4、给切面类的目标方法标注何时何地运行(通知注解)
+ * 5、将切面类和目标业务逻辑类（目标方法所在类都加入到容器中）
+ * 6、必须告诉Spring哪个是类的切面类型（加入切面注解@Aspect）
+ * 7、给配置类中加入@EnableAspectJAutoProxy(开启基于AOP模式的注解)
+ *      在Spring中很多@EnableXXX
+ *
+ * 三步：
+ *    1、将业务逻辑组件和切面类都加入到容器中，告诉Spring哪个是切面类（@Aspect)
+ *    2、在切面类上的每个通知方法上标注通知注解，告诉Spring何时何地运行（切入点表达式）
+ *    3、开启基于注解的aop模式
+ *
+ * AOP原理：
+ *   @EnableAspectJAutoProxy ：
+ *  1、@EnableAspectJAutoProxy是什么？
+ *     @Import(AspectJAutoProxyRegistrar.class) ，给容器中导入AspectJAutoProxyRegistrar组件
+ *        利用AspectJAutoProxyRegistrar自定义给容器中注册bean
+ *     给容器中注册一个AnnotationAwareAspectJAutoProxyCreator
+ *
+ *  2、AnnotationAwareAspectJAutoProxyCreator：
+ *          AnnotationAwareAspectJAutoProxyCreator
+ *          ->AspectJAwareAdvisorAutoProxyCreator
+ *           ->AbstractAdvisorAutoProxyCreator
+ *             ->AbstractAutoProxyCreator
+ *               implements SmartInstantiationAwareBeanPostProcessor, BeanFactoryAware
+ *               关注后置处理器（在bean初始化完成前后做事情），自动装配BeanFactory
+ *   ->AbstractAutoProxyCreator.setBeanFactory(BeanFactory beanFactory)
+ *   ->AbstractAutoProxyCreator.postProcessBeforeInitialization()
+ *   ->AbstractAutoProxyCreator.postProcessAfterInitialization()
+ *
+ *   ->AbstractAdvisorAutoProxyCreator.setBeanFactory(BeanFactory beanFactory)
+ *
+ *   ->AnnotationAwareAspectJAutoProxyCreator.initBeanFactory(ConfigurableListableBeanFactory beanFactory)
+ *
+ * 流程：
+ *    1、传入配置类创建IOC容器
+ *    2、注册配置类，调用refresh()方法属性容器
+ *    3、registerBeanPostProcessors(beanFactory);注册bean的后置处理器来方便拦截bean的创建
+ *      1)、先获取ioc容器已经定义了的需要创建对象的所有BeanPostProcessor
+ *      2)、给容器中加入别的BeanPostProcessor
+ *      3)、优先注册实现了PriorityOrdered接口的BeanPostProcessor
+ *      4)、再给容器中注册实现了Ordered接口的BeanPostProcessor
+ *      5)、注册没实现优先级接口的BeanPostProcessor
+ *      6)、注册BeanPostProcessor,实际上就是创建BeanPostProcessor对象，保存在容器中，
+ *          创建internalAutoProxyCreator的BeanPostProcessor[AnnotationAwareAspectJAutoProxyCreator]
+ *          1)、创建Bean实例 AnnotationAwareAspectJAutoProxyCreator
+ *          2)、populateBean,给bean的各种属性赋值
+ *          3)、initializeBean，初始化bean
+ *              1)、invokeAwareMethods(beanName, bean);处理Aware接口的方法回调
+ *              2)、applyBeanPostProcessorsBeforeInitialization，应用后置处理器的postProcessBeforeInitialization()
+ *              3)、invokeInitMethods(beanName, wrappedBean, mbd);执行自定义bean的初始化方法
+ *              4)、applyBeanPostProcessorsAfterInitialization，执行后置处理器的postProcessAfterInitialization()
+ *          4)、BeanPostProcessor(AnnotationAwareAspectJAutoProxyCreator)创建成功---》aspectJAdvisorsBuilder
+ *      7)、把BeanPostProcessor注册到BeanFactory中，
+ *           beanFactory.addBeanPostProcessor(postProcessor);
+ * =================以上是创建和注册AnnotationAwareAspectJAutoProxyCreator的过程================
+ *          AnnotationAwareAspectJAutoProxyCreator=>InstantiationAwareBeanPostProcessor
+ *     4、finishBeanFactoryInitialization(beanFactory);完成BeanFactory初始化工作，创建剩下的单实例
+ *         1)、遍历获取容器中所有的Bean，依次创建对象
+ *              getBean->doGetBean->getSingleton()->
+ *         2)、创建bean
+ *              【AnnotationAwareAspectJAutoProxyCreator在所有bean创建之前会有一个拦截，InstantiationAwareBeanPostProcessor,会调用postProcessBeforeInstantiation方法】
+ *              1)、先从缓存中获取当前bean，如果能获取到，说明bean是之前被创建过的，直接使用，否则再创建
+ *                  只要创建好的bean都会被缓存起来
+ *              2)、createBean();创建bean，
+ *              AnnotationAwareAspectJAutoProxyCreator会在任何bean创建之前尝试返回bean实例
+ *                  【BeanPostProcessor是在bean对象创建完成初始化前后调用】
+ *                  【InstantiationAwareBeanPostProcessor是在创建Bean实例之前先尝试用后置处理器返回对象的】
+ *                  1)、resolveBeforeInstantiation(beanName, mbdToUse);解析bean
+ *                      希望后置处理器在此能返回一个代理对象,如果能返回代理对象就返回，如果不能则继续执行
+ *                      1)、后置处理器先尝试返回对象，
+ *                          bean = applyBeanPostProcessorsBeforeInstantiation()
+ *                          // 拿到所有后置处理器，如果是InstantiationAwareBeanPostProcessor;
+ *                          // 就执行后置处理器的postProcessBeforeInstantiation
+ *                          if (bean !=null) {
+ *                              bean = applyBeanPostProcessorsAfterInitialization()
+ *                          }
+ *
+ *                  2)、doCreateBean(beanName, mbdToUse, args);真正的创建一个bean实例，和3.6）创建流程一样
+ *
+ **/
+@EnableAspectJAutoProxy
+@Configuration
+public class MainConfigAop {
+
+    // 业务逻辑类加入到容器中
+    @Bean
+    public MathCalculator calculator() {
+        return new MathCalculator();
+    }
+
+    // 将切面类加入到容器中
+    @Bean
+    public LogAspects logAspects() {
+        return new LogAspects();
+    }
+}
