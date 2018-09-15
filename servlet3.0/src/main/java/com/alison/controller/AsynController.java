@@ -1,10 +1,12 @@
 package com.alison.controller;
 
-import jdk.nashorn.internal.codegen.CompilerConstants;
+import com.alison.service.DeferredResultQueue;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.async.DeferredResult;
 
+import java.util.UUID;
 import java.util.concurrent.Callable;
 
 /**
@@ -12,6 +14,26 @@ import java.util.concurrent.Callable;
  */
 @Controller
 public class AsynController {
+
+    @RequestMapping("/createOrder")
+    @ResponseBody
+    public DeferredResult<Object> createOrder() {
+        DeferredResult<Object> deferredResult = new DeferredResult<>(6000L, "error fail");
+        DeferredResultQueue.save(deferredResult);
+        return deferredResult;
+    }
+
+    @RequestMapping("/create")
+    @ResponseBody
+    public String create() {
+        // 创建订单
+        String order = UUID.randomUUID().toString();
+
+        DeferredResult<Object> deferredResult = DeferredResultQueue.get();
+        deferredResult.setResult(order);
+
+        return "success==>"+order;
+    }
 
     /**
      * 1、控制器返回Callable
