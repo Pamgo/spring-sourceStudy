@@ -25,8 +25,8 @@ import org.springframework.stereotype.Controller;
 @Configuration
 @ComponentScan(value = "com.alison",includeFilters = {
         // 排除注解
-       /* @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {Controller.class}),
-        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {BookService.class}),*/
+        @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {Controller.class}),
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {BookService.class}),
         @ComponentScan.Filter(type = FilterType.CUSTOM, classes = {MyTypeFilter.class})
 }, useDefaultFilters = false)
 public class MainConfig {
