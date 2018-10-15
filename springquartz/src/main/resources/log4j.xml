@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC
+        "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+ 	<!-- CONSOLE -->  
+    <appender name="CONSOLE.ERR" class="org.apache.log4j.ConsoleAppender">  
+        <param name="target" value="System.err" />  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}[%p]( %l)%n%m%n" />  
+        </layout>  
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">  
+            <param name="LevelMin" value="error" />  
+            <param name="LevelMax" value="fatal" />  
+            <param name="AcceptOnMatch" value="false" />  
+        </filter>  
+    </appender>  
+    <appender name="CONSOLE.OUT" class="org.apache.log4j.ConsoleAppender">  
+        <param name="target" value="System.out" />  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}[%p]( %l)%n%m%n" />  
+        </layout>  
+        <!-- 日志简单输出 -->
+        <!-- <layout class="org.apache.log4j.SimpleLayout">
+        </layout>  -->
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">  
+            <param name="LevelMin" value="debug" />  
+            <param name="LevelMax" value="warn" />  
+            <param name="AcceptOnMatch" value="false" />  
+        </filter>  
+    </appender>  
+    
+    <!-- FILE -->
+    <appender name="R" class="org.apache.log4j.RollingFileAppender">  
+    	<param name="File" value="${user.dir}/quartz.log" />
+    	<param name="Append" value="true" />
+    	<param name="Threshold" value="debug" />
+    	<param name="ImmediateFlush" value="true" />
+    	<param name="MaxFileSize" value="1MB" />
+    	<param name="MaxBackupIndex" value="10" />
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}[%p]( %l)%n%m%n" />  
+        </layout>  
+    </appender> 
+     
+    <appender name="AsyncR" class="org.apache.log4j.AsyncAppender">   
+	     <param name="BufferSize" value="512"/>   
+	     <appender-ref ref="R"/>
+   	</appender>
+     
+     <!-- other --> 
+
+    <logger name="org.mybatis.spring">  
+        <level value="warn" />  
+    </logger>
+    <logger name="org.springframework">  
+        <level value="info" />  
+    </logger>
+    <logger name="org.quartz.core">
+        <level value="info" />
+    </logger>
+    <logger name="org.springframework.web.servlet">
+    	<level value="warn" />
+    </logger>
+    <logger name="org.springframework.beans">
+    	<level value="warn" />
+    </logger>
+
+    <logger name="java.sql">  
+        <level value="debug" />  
+    </logger>
+    <logger name="org.apache.commons.httpclient">  
+        <level value="error" />  
+    </logger>
+    <logger name="org.apache.http">  
+        <level value="error" />  
+    </logger>
+  
+    <!-- Root Logger -->  
+    <root>  
+        <priority value="info" />
+        <appender-ref ref="CONSOLE.ERR" />  
+        <appender-ref ref="CONSOLE.OUT" />  
+        <appender-ref ref="AsyncR" />
+    </root>  
+  
+</log4j:configuration>  

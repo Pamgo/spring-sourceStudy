@@ -41,6 +41,11 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.yeauty</groupId>
+      <artifactId>netty-websocket-spring-boot-starter</artifactId>
+      <version>0.6.2</version>
+    </dependency>
 
   </dependencies>
 
