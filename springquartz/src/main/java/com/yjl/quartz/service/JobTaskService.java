@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -233,8 +234,10 @@ public class JobTaskService {
     public void init() throws SchedulerException {
         // TODO 从数据库中获取所有任务
         List<ScheduleJob> scheduleJobs = null;
-        for (ScheduleJob scheduleJob : scheduleJobs) {
-            addJob(scheduleJob);
+        if (!CollectionUtils.isEmpty(scheduleJobs)) {
+            for (ScheduleJob scheduleJob : scheduleJobs) {
+                addJob(scheduleJob);
+            }
         }
 
     }

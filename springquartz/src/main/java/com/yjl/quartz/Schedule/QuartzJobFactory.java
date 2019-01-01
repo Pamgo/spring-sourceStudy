@@ -10,7 +10,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 @DisallowConcurrentExecution
-public class QuartzJobFactory implements Job {
+public class  QuartzJobFactory implements Job {
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {

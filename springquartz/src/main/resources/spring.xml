@@ -17,7 +17,8 @@
 	<!--SpringMVC高级功能开启-->
 
 	<!-- 调度工厂 -->
-	<bean id="schedulerFactoryBean" name="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" />
+	<bean id="schedulerFactoryBean" name="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	</bean>
 
 	<bean id="jobTest" class="com.yjl.quartz.Schedule.JobTest"/>
 
