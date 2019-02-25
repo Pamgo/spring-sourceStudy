@@ -1,5 +1,5 @@
 ## spring-sourceStudy
-### spring-annotation为Spring源码方面的学习
+### 1、spring-annotation为Spring源码方面的学习
 Spring源码分析学习
 
 ======总结===========
@@ -22,11 +22,11 @@ Spring源码分析学习
 		ApplicationListener；事件监听；
 		ApplicationEventMulticaster；事件派发：
 
-### javamtia为java多线程并发方面学习
+### 2、javamtia为java多线程并发方面学习
 
-### okay-ad为广告系统方面的学习（微服务化）
+### 3、okay-ad为广告系统方面的学习（微服务化）
 
-### okay-springcloud-code为《重新定义SpringCloud实战》学习
+### 4、okay-springcloud-code为《重新定义SpringCloud实战》学习
 
-### renren-fast为人人网后台服务
+### 5、renren-fast为人人网后台服务
 
