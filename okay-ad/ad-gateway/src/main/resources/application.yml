@@ -1,0 +1,28 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: ad-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://server1:8000/eureka/
+#配置网关
+zuul:
+  #所有经过网关的请求前缀都有一个okay路径
+  prefix: /okay/api
+  #配置路由信息，实现为服务的转发
+  routes:
+    sponsor:
+      #path就是上面prefix网关实现转发的时候，
+      #还有一个前缀,网关看到有这个前缀之后就会转发到对应的服务上面
+      #**代表通配符，也可以使用？
+      path: /ad-sponsor/**
+      #为服务名称，对应spring.application.name的值
+      serviceId: eureka-client-ad-sponsor
+      #跳过前缀的意思，false代表不跳过前缀，
+      #/okay/api/经过网关，不过滤ad-sponsor
+      #例如：127.0.0.1:9000/okay/api/ad-sponsor/create/adPlan
+      #将会转发到 127.0.0.1:7000/ad-sponsor/create/adPlan方法上
+      strip-prefix: false

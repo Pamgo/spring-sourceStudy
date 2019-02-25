@@ -1,0 +1,74 @@
+#应用名称
+spring:
+  application:
+    name: ad-eureka
+#应用端口
+server:
+  port: 8000
+#单节点eurekaServer
+eureka:
+  server:
+    enable-self-preservation: true
+    wait-time-in-ms-when-sync-empty: 0
+    #指定分钟需要收到的续约次数的阈值，可适当降低
+    renewal-percent-threshold: 0.49
+  instance:
+    hostname: localhost
+    #Eureka Client向Eureka Server发送心跳的时间间隔
+    lease-renewal-interval-in-seconds: 10
+  client:
+    #表示是否重eurekaServer获取注册信息
+    fetch-registry: false
+    #表示是否将自己注册到eurekaServer
+    register-with-eureka: false
+    #设置eurekaServer地址
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+###################################多节点
+#启动java -jar ad-eureka-1.0-SNAPSHOT.jar --spring.profiles.active=server2
+---
+spring:
+  application:
+    name: ad-eureka
+  profiles: server1
+server:
+  port: 8000
+eureka:
+  instance:
+    hostname: server1
+    #是否使用ip地址注册
+    prefer-ip-address: false
+  client:
+    service-url:
+      defaultZone: http://server2:8001/eureka/,http://server3:8002/eureka/
+---
+spring:
+  application:
+    name: ad-eureka
+  profiles: server2
+server:
+  port: 8001
+eureka:
+  instance:
+    hostname: server2
+    #是否使用ip地址注册
+    prefer-ip-address: false
+  client:
+    service-url:
+      defaultZone: http://server1:8000/eureka/,http://server3:8002/eureka/
+---
+spring:
+  application:
+    name: ad-eureka
+  profiles: server3
+server:
+  port: 8002
+eureka:
+  instance:
+    hostname: server3
+    #是否使用ip地址注册
+    prefer-ip-address: false
+  client:
+    service-url:
+      defaultZone: http://server1:8000/eureka/,http://server2:8001/eureka/
+

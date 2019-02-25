@@ -1,0 +1,15 @@
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    #设置 eureka server同步失败的等待时间 默认 5分
+    #在这期间，它不向客户端提供服务注册信息
+    wait-time-in-ms-when-sync-empty: 0
+    enable-self-preservation: false
