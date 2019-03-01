@@ -12,3 +12,4 @@ eureka:
       zone2: http://localhost:8763/eureka/,http://localhost:8764/eureka/
     availability-zones:
       region-east: zone1,zone2
+    registry-fetch-interval-seconds: 5
