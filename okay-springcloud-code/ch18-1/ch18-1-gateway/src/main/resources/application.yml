@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: sc-gateway-server
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+      - id: sc-consumer
+        uri: lb://sc-consumer
+        predicates:
+        - Path=/admin/**
+        filters:
+        - GwSwaggerHeaderFilter
+        - StripPrefix=1
+server:
+  port: 9000 #网关服务监听端口号
+  ssl:
+    key-alias: spring
+    enabled: true
+    key-password: spring
+    key-store: classpath:selfsigned.jks
+    key-store-type: JKS
+    key-store-provider: SUN
+    key-store-password: spring
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+logging:
+  level: # 跳值相关包的日志级别
+    org.springframework.cloud.gateway: debug
+

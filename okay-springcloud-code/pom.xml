@@ -16,6 +16,11 @@
         <module>ch3-3</module>
         <module>ch3-4</module>
         <module>ch17-1</module>
+        <module>ch17-3</module>
+        <module>ch18-6</module>
+        <module>ch6-1</module>
+        <module>ch-java8Test</module>
+        <module>ch6-4</module>
     </modules>
 
     <properties>

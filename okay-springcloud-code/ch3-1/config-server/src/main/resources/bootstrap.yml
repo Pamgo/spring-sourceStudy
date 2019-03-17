@@ -1,6 +1,6 @@
 spring:
   application:
-    name: config-server
+    name: filter-server
   profiles:
     active: native
 server:

@@ -18,6 +18,8 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>ch17-1-gateway</module>
+        <module>ch17-2-4-gateway</module>
+        <module>ch17-2-service</module>
     </modules>
 
 

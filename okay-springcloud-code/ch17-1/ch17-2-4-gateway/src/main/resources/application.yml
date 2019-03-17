@@ -1,0 +1,15 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: test_cookie_route
+        uri: http://localhost:8071/test/head
+        predicates:
+        - Path=/cookie/route
+        - Cookie=chocolate, ch.p
+        - Header=X-Request-Id, okay
+        filters:
+        - AddRequestHeader=X-Request-okay, valueOkey
+        - AddRequestParameter=example, ValueB
