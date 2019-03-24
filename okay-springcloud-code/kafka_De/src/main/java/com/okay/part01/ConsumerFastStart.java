@@ -7,7 +7,6 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
-import java.util.SimpleTimeZone;
 
 /**
  * Created by OKali on 2019/3/24.
