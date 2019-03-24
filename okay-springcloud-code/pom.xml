@@ -21,6 +21,7 @@
         <module>ch6-1</module>
         <module>ch-java8Test</module>
         <module>ch6-4</module>
+        <module>kafka_De</module>
     </modules>
 
     <properties>

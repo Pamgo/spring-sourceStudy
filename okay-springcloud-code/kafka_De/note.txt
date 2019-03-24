@@ -1,0 +1,27 @@
+1、启动zookeeper
+xxx@root# cd /usr/local/zookerper-xx/bin
+xxx@root# ./zkServer.sh start
+------------
+zookeeper配置文件，zoo.cfg
+
+按照zookeeper注意的事项:
+在配置的/tmp/zookeeper/data数据目录创建一个myid文件存放进程号
+xxx@data# touch myid
+往myid写入服务编号
+xxx@data#echo 0 > myid
+
+2、启动kafka
+xxx@root# cd /usr/local/kafka-x/bin/kafka-server-start.sh -daemon conf/server.properties
+------------
+kafka配置文件server.properties
+kafka按照注意文件：
+在kafka目录下创建一个文件,并且在文件中创建一个myid文件同时写入一个数值
+xxx@root#mkdir -p zookeeper
+
+-----查看运行的进程
+xxx@root#jps -l
+
+-----杀掉对应的进程
+xxx@root#kill -9 进程编号
+
+
