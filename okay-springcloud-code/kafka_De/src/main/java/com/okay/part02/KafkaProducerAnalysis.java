@@ -54,10 +54,10 @@ public class KafkaProducerAnalysis {
         // 消息累加器的大小
         kafkaProp.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 32 * 1024 * 1024L);
         // 分区中的双端队列大小，ByteBuffer，使用BufferPool进行缓存的服用
-        kafkaProp.put(ProducerConfig.BATCH_SIZE_CONFIG, 16 * 1024L);
+        kafkaProp.put(ProducerConfig.BATCH_SIZE_CONFIG, 16 * 1024);
         // 客户端域集群node之间的链接最多缓存请求数。（每个请求最多缓存的请求数），
         // 即最多只能缓存5个为响应的请求，超过之后就不能在向这个连接发送更多的请求了，除非有缓存的请求收到了响应
-        kafkaProp.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 5L);
+        kafkaProp.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 5);
 
         return kafkaProp;
     }
