@@ -30,6 +30,7 @@ public class SeekDemoAssignment {
                 StringDeserializer.class.getName());
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, brokerList);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+        props.put(ConsumerConfig.INTERCEPTOR_CLASSES_CONFIG, ConsumerInterceptorTTL.class.getName());
         return props;
     }
 
@@ -57,7 +58,7 @@ public class SeekDemoAssignment {
                     consumer.poll(Duration.ofMillis(1000));
             //consume the record.
             for (ConsumerRecord<String, String> record : records) {
-                System.out.println(record.offset() + ":" + record.value());
+                System.out.println("消费记录：" + record.offset() + ":" + record.value());
             }
         }
     }
