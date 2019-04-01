@@ -22,6 +22,14 @@ xxx@root#mkdir -p zookeeper
 xxx@root#jps -l
 
 -----杀掉对应的进程
-xxx@root#kill -9 进程编号
+xxx@root#kill -9/-15 进程编号
+
+-----为主题增加分区数 6个
+xxx@root# ./kafka-topics.sh --zookeeper localhost:2181/kafka --alter --topic topic-demo --partitions 6
 
 
+
+
+-----------------------微服务架构-----------------
+XYZ扩展说明等：
+https://www.cnblogs.com/exceptioneye/p/9334303.html#4025251
