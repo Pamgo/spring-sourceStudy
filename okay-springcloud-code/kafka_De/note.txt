@@ -33,3 +33,12 @@ xxx@root# ./kafka-topics.sh --zookeeper localhost:2181/kafka --alter --topic top
 -----------------------微服务架构-----------------
 XYZ扩展说明等：
 https://www.cnblogs.com/exceptioneye/p/9334303.html#4025251
+
+-----------------kafka重点关注---------------
+part02
+0、生产着拦截器问题 P34
+part03
+0、消费者自定义拦截器 P82
+1、消费者的多线程消费问题 P88
+2、位移提交，重点关注按分区细粒度提交 P68
+
