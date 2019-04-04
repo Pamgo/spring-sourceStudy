@@ -26,7 +26,7 @@ Spring源码分析学习
 
 ### 3、okay-ad为广告系统方面的学习（微服务化）
 
-### 4、okay-springcloud-code为《重新定义SpringCloud实战》学习
+### 4、okay-springcloud-code为《重新定义SpringCloud实战》学习,其中KafkaDe目录内部含有kafka学习研究以及代码
 
 ### 5、renren-fast为人人网后台服务
 
