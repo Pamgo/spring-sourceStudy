@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * Created by OKali on 2019/3/31.
  */
 public class ThirdMultiConsumerThreadDemo {
-    public static final String brokerList = "192.168.1.104:9092";
+    public static final String brokerList = "192.168.1.105:9092";
     public static final String topic = "topic-demo";
     public static final String groupId = "group.demo";
     public static Map<TopicPartition, OffsetAndMetadata> offsets = new HashMap<>();

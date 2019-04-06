@@ -15,7 +15,7 @@ import java.util.concurrent.Future;
 @Slf4j
 public class KafkaProducerAnalysis {
 
-    public static final String brokerList = "192.168.1.104:9092";
+    public static final String brokerList = "192.168.1.105:9092";
     public static final String topic = "topic-demo";
 
     public static Properties initConfig() {

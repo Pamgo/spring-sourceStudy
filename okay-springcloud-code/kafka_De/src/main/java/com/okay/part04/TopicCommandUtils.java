@@ -8,8 +8,8 @@ public class TopicCommandUtils {
 
     public static void main(String[] args) {
         //createTopic();
-        //describeTopic();
-        listTopic();
+        describeTopic();
+       // listTopic();
     }
 
     // 创建一个分区为1，副本因子为1的主题topic-create-api
@@ -27,7 +27,7 @@ public class TopicCommandUtils {
     // 查看主题信息
     public static void describeTopic(){
         String[] options = new String[]{
-                "--zookeeper", "192.168.1.104:2181/kafka",
+                "--zookeeper", "192.168.1.105:2181/kafka",
                 "--describe",
                 "--topic", "topic-create"
         };
