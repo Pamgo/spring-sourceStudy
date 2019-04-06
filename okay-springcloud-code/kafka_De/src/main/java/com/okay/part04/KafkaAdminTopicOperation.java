@@ -79,8 +79,8 @@ public class KafkaAdminTopicOperation {
     }
 
     public static void main(String[] args) {
-        createTopic();
+        //createTopic();
         //describeTopic();
-        //deleteTopic();
+        deleteTopic();
     }
 }

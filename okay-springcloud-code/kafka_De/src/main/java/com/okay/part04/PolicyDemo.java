@@ -9,6 +9,7 @@ import java.util.Map;
  * 主题合法性验证
  */
 public class PolicyDemo implements CreateTopicPolicy {
+
     public void configure(Map<String, ?> configs) {
     }
 
