@@ -9,6 +9,7 @@ import java.util.Set;
 public class Test {
 
     public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
         Master master = new Master(new PlusWorker(), 5); //  固定使用5个Worker
 
         for (int i = 0; i < 100; i++) {
@@ -23,7 +24,6 @@ public class Test {
             String key = null;
             for (String k : keys) {
                 key = k;
-                System.out.println("key:"+key);
                 break;
             }
             Integer i = null;
@@ -35,6 +35,7 @@ public class Test {
             if (key != null)
                 resultMap.remove(key);
         }
-        System.out.println("结果："+re);
+        long endTime = System.currentTimeMillis();
+        System.out.println("结果："+re+"，耗时：" + (endTime - startTime) +"ms");
     }
 }
