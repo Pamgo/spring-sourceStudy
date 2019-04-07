@@ -100,6 +100,7 @@ public class ThirdMultiConsumerThreadDemo {
                             + ",分区："+ record.partition() + "，偏移量:" + record.offset()
                             +",消费记录：" + record.value());
                 }
+
                 // 设置处理消息后的位移
                 long lastConsumerOffset = tpRecords.get(tpRecords.size() - 1).offset();
                 synchronized (offsets) {

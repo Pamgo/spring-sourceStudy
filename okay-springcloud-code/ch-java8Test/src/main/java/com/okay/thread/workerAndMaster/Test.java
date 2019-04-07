@@ -35,5 +35,6 @@ public class Test {
             if (key != null)
                 resultMap.remove(key);
         }
+        System.out.println("结果："+re);
     }
 }

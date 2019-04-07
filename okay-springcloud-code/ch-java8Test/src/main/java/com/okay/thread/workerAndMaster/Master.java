@@ -19,6 +19,14 @@ public class Master {
     private Map<String, Object> resultMap = new ConcurrentHashMap<>();
 
     // 是否所有的子任务都结束了
+    // 线程状态说明：
+    // NEW (新建）
+    // RUNNABLE (可运行)
+    // BLOCKED (阻塞)
+    // WAITING (无限期等待)
+    // TIMED_WAITING (限期等待)
+    // TERMINATED（结束）
+    // https://www.cnblogs.com/trust-freedom/p/6606594.html
     public boolean isComplete() {
         for (Map.Entry<String, Thread> entry : threadMap.entrySet()) {
             if (entry.getValue().getState() != Thread.State.TERMINATED) {
