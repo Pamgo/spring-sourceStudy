@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by OKali on 2019/4/7.
  */
-public class ClientThread extends  Thread {
+public class ClientThread extends Thread {
 
     private RequestQueue requestQueue;  // 请求队列
 

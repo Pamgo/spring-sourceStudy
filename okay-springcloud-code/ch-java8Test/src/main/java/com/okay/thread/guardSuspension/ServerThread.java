@@ -23,7 +23,7 @@ public class ServerThread extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(Thread.currentThread().getName() + "handles " + request.toString());
+            System.out.println(Thread.currentThread().getName() + " handles " + request.toString());
         }
     }
 }
