@@ -17,6 +17,7 @@
     <modules>
         <module>ch3-4-eureka-server</module>
         <module>ch3-4-eureka-client</module>
+        <module>ch3-4-eureka-admin</module>
     </modules>
 
     <properties>

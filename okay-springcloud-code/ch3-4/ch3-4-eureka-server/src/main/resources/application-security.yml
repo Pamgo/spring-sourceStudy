@@ -4,7 +4,7 @@ spring:
   security:
     user:
       name: admin
-      password: Xk38CNHigBP5jK75
+      password: root
     basic:
       enabled: true
 eureka:

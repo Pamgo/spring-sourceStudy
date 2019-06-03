@@ -1,0 +1,6 @@
+
+启动server
+mvn spring-boot:run -Dspring.profiles.active=security
+
+通过账号密码连接：
+curl -i --basic -u admin:root http://localhost:8761/eureka/apps

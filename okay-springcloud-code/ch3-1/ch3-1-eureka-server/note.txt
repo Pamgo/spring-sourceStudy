@@ -1,0 +1,5 @@
+根据config-server的不同配置文件启动server
+mvn spring-boot:run -Dspring.profiles.active=peer1
+
+在线刷新server
+curl -i -X POST http://localhost:8761/actuator/refresh

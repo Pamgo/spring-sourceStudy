@@ -16,7 +16,7 @@ public class QueryController {
     @Autowired
     EurekaClientConfigBean eurekaClientConfigBean;
 
-    @GetMapping("/eureka-server")
+    @GetMapping("/eureka-client")
     public Object getEurekaServerUrl(){
         return eurekaClientConfigBean.getServiceUrl();
     }

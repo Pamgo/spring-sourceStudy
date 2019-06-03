@@ -33,7 +33,6 @@ public class ConsumerFastStart {
         consumer.subscribe(Collections.singletonList(topic));
         // 订阅主题
 
-        // 循环消费消息
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000).getSeconds());
             for (ConsumerRecord<String, String> record : records) {
